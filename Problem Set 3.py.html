@@ -1,0 +1,144 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[24]:
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+# In[ ]:
+
+
+# In collaboration with Spencer Fairbairn, Skyler Middler, Lanea Blackburn, Jihoon Jang
+
+
+# In[ ]:
+
+
+# 1
+# The Data Dictionary is used for reference for the many factors when deciding if a person should be given a loan.
+
+
+# In[99]:
+
+
+# 2
+def loadAndCleanData(file):
+    pandaFile = pd.read_csv(file)
+    pandaFile.fillna(value = 0, inplace = True)
+    return pandaFile
+
+
+# In[100]:
+
+
+# 3
+# load and clean the data
+cleanedData = loadAndCleanData("creditData.csv")
+
+
+# In[101]:
+
+
+# 4
+def computePDF(columnName, data):
+    dataPlot = data[columnName].plot.kde()
+    plt.show(dataPlot)
+# show?     
+head = list(cleanedData.columns.values)
+for i in head:
+    computePDF(i, cleanedData)
+
+
+# In[63]:
+
+
+# 5 
+def viewDistribution(columnName, data):
+    dataPlot = data.hist(column = columnName)
+    plt.show(dataPlot)
+
+
+# In[67]:
+
+
+# 5
+column = list(newData.columns.values) 
+for i in column:
+    viewDistribution(i,cleanedData)
+    
+    
+# These histograms are strange because the vast majority of the values
+# are very low, with age being an exception.
+
+
+# In[83]:
+
+
+# 6 
+def viewLogDistribution(columnName, data):
+    dataPlot = data.hist(column = columnName, log=True)
+    plt.show(dataPlot)
+
+
+# In[84]:
+
+
+# 6 
+logs = list(cleanedData.columns.values)
+for i in logs:
+    viewLogDistribution(i, cleanedData)
+
+
+# In[93]:
+
+
+# 7 
+def binsCount(columnName, data):
+    bins = pd.qcut(data[columnName], q=3, duplicate = 'drop')
+    print(bins[0])
+
+
+# In[94]:
+
+
+# 7 
+columnNames = list(cleanedData.columns.values)
+for i in columnNames:
+    newBins = bins(i, cleanedData)
+
+
+# In[102]:
+
+
+# 8 
+def computeDefaultRisk(column, targetFeature, bin, dataFrame):
+    total = ''
+    total2 = ''
+    for i, datapoint in dataFrame.iterrows():
+        if datapoint[targetFeature]>=bin[0] and datapoint[targetFeature]<bin[1]:
+            count+= 1
+            if dataPoints[column]==1:
+                count2 += 1
+    lengthData = len(data)
+    prob = total/lengthData
+    prob2 = total/lengthData
+    print(prob2 / prob)
+    return prob2 / prob
+
+
+# In[82]:
+
+
+# 9
+computeDefaultRisk
+
+
+# In[15]:
+
+
+# 10
+loadAndCleanData("newLoans.csv")
+
